@@ -33,9 +33,10 @@ public class DBAdapter {
     }
 
     //closes the database
-    // public void close() {
-    // DBHelper.close();
-    // }
+    public void close() {
+        DBHelper.close();
+    }
+
     // insert a contact into the database
     public long insertContact(String name, String alamat) {
         ContentValues initialValues = new ContentValues();
@@ -58,7 +59,7 @@ public class DBAdapter {
     //retrieves a particular contact
     public Cursor getContact(long rowId) throws SQLException {
         Cursor mCursor = db.query(true, DATABASE_TABLE,
-                new String[]{KEY_ROWID, KEY_NAME, KEY_ALAMAT},KEY_ROWID + "=" + rowId,
+                new String[]{KEY_ROWID, KEY_NAME, KEY_ALAMAT}, KEY_ROWID + "=" + rowId,
                 null, null, null, null, null);
        /* Cursor mCursor = db.rawQuery("select * from " + DATABASE_TABLE +
                 " where _id = " + rowId, null);*/
