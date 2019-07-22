@@ -3,7 +3,7 @@ package id.co.blogspot.diansano.appcopydbfromassets;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,10 +14,13 @@ import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView tvAnggota;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tvAnggota = findViewById(R.id.tv_anggota);
 
         try {
             String destPath = "/data/data/" + getPackageName() + "/databases";
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         DBAdapter db = new DBAdapter(this);
         db.open();
-        Cursor c = db.getAllContacts();
+        Cursor c = db.getContact(1);
         if (c.moveToFirst()) {
             do {
                 DisplayContact(c);
@@ -46,9 +49,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void DisplayContact(Cursor c) {
-        Toast.makeText(this, "id: " + c.getString(0) + "\n" + "Name: " +
-                c.getString(1) + "\n" + "Email: " + c.getString(2),
-        Toast.LENGTH_SHORT).show();
+       /* Toast.makeText(this, "id: " + c.getString(0) + "\n" + "Name: " +
+                c.getString(1) + "\n" + "Alamat: " + c.getString(2),
+        Toast.LENGTH_SHORT).show();*/
+       tvAnggota.setText("id: " + c.getString(0) + "\n" + "Nama: " +
+               c.getString(1) + "\n" + "Alamat: " + c.getString(2));
     }
 
     private void copyDB(InputStream inputStream, OutputStream outputStream) throws IOException {
